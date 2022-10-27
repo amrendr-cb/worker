@@ -1,0 +1,42 @@
+[
+  {
+    "cpu": ${cpu},
+    "environment": [],
+    "essential": true,
+    "image": "cbdr/${team}-${application}:${version}",
+    "logConfiguration": {
+      "logDriver": "json-file"
+    },
+    "memory": ${memory},
+    "name": "${team}-${application}-${environment}",  
+    "portMappings": [
+      {
+        "containerPort": ${container_port},
+        "hostPort": 0,
+        "protocol": "tcp"
+      }
+    ],
+    "systemControls": [
+      {
+        "namespace": "net.ipv4.ip_local_port_range",
+        "value": "16000 65535"
+      },
+      {
+        "namespace": "net.ipv4.tcp_fin_timeout",
+        "value": "15"
+      }
+    ],
+    "ulimits": [
+      {
+        "name": "nofile",
+        "softLimit": 65535,
+        "hardLimit": 65535
+      },
+      {
+        "name": "nproc",
+        "softLimit": 131072,
+        "hardLimit": 131072
+      }
+    ]
+  }
+]
